@@ -52,8 +52,9 @@ export default function Home() {
             Histórico
           </h2>
           {history.length > 0 ? (
-            history
+            [...history]
               .filter((roll) => roll.sides === selectedDice)
+              .reverse()
               .map((roll, index) => (
                 <div
                   key={index}
