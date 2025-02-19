@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model DiceRoll {
+  id        Int      @id @default(autoincrement())
+  diceSides Int
+  result    Int
+  createdAt DateTime @default(now())
+}
