@@ -1,5 +1,4 @@
 import { api } from "../api";
-import { useQuery } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 
 export const useRollDiceMutation = () => {
