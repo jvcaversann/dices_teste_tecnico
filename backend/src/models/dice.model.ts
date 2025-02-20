@@ -18,4 +18,10 @@ export const DiceRollModel = {
       orderBy: { createdAt: "desc" },
     });
   },
+
+  deleteRoll: async (id: number) => {
+    return await prisma.diceRoll.delete({
+      where: { id },
+    });
+  },
 };

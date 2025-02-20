@@ -20,8 +20,6 @@ export const useRollDiceMutation = () => {
 };
 
 export const useDiceHistoryQuery = (diceSides: number | null) => {
-  const queryClient = useQueryClient();
-
   return useQuery({
     queryKey: ["diceHistory", diceSides],
     queryFn: async () => {
@@ -32,5 +30,21 @@ export const useDiceHistoryQuery = (diceSides: number | null) => {
     enabled: !!diceSides,
     staleTime: 1000 * 60 * 5,
     retry: 1,
+  });
+};
+
+export const useDeleteRollMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (rollId: number) => {
+      const response = await api.delete(`/api/roll/${rollId}`);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["diceHistory"],
+      });
+    },
   });
 };

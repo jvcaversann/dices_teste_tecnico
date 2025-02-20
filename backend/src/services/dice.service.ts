@@ -27,4 +27,17 @@ export const DiceService = {
 
     return await DiceRollModel.getRollHistory(diceSides);
   },
+
+  deleteRoll: async (rollId: number) => {
+    if (
+      !rollId ||
+      typeof rollId !== "number" ||
+      rollId <= 0 ||
+      !Number.isInteger(rollId)
+    ) {
+      throw new Error("ID da rolagem inválido");
+    }
+
+    return await DiceRollModel.deleteRoll(rollId);
+  },
 };

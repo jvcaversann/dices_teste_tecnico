@@ -32,7 +32,29 @@ const handleGetHistory = async (req: Request, res: Response) => {
   }
 };
 
+const handleDeleteRoll = async (req: Request, res: Response) => {
+  const rollId = Number(req.params.id);
+
+  try {
+    const deletedRoll = await DiceService.deleteRoll(rollId);
+
+    if (!deletedRoll) {
+      return res.status(404).json({ error: "Rolagem não encontrada" });
+    }
+    res.json({
+      message: "Rolagem deletada com sucesso",
+      deleted: deletedRoll,
+    });
+  } catch (error) {
+    console.error("Erro ao deletar rolagem:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Erro desconhecido";
+    res.status(400).json({ error: errorMessage });
+  }
+};
+
 export const DiceController = {
   handleRoll,
   handleGetHistory,
+  handleDeleteRoll,
 };

@@ -4,6 +4,7 @@ import { DiceButton } from "./components/DiceButton";
 import {
   useDiceHistoryQuery,
   useRollDiceMutation,
+  useDeleteRollMutation,
 } from "./services/diceRequests";
 import { RollHistory } from "./components/RollHistory";
 import { RollButton } from "./components/RollButton";
@@ -13,6 +14,8 @@ export default function Home() {
   const [selectedDice, setSelectedDice] = useState<number | null>(null);
 
   const rollMutation = useRollDiceMutation();
+  const deleteMutation = useDeleteRollMutation();
+
   const {
     data: history,
     isLoading,
@@ -22,6 +25,14 @@ export default function Home() {
   const handleRoll = () => {
     if (!selectedDice) return;
     rollMutation.mutate(selectedDice);
+  };
+
+  const handleDeleteRoll = async (rollId: number) => {
+    try {
+      await deleteMutation.mutateAsync(rollId);
+    } catch (error) {
+      console.error("Falha ao deletar sorteio:", error);
+    }
   };
 
   return (
@@ -52,6 +63,8 @@ export default function Home() {
           selectedDice={selectedDice}
           isLoading={isLoading}
           isError={isError}
+          onDelete={handleDeleteRoll}
+          isDeleting={deleteMutation.isPending}
         />
       </div>
 
