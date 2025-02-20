@@ -7,7 +7,7 @@ import {
 } from "./services/diceRequests";
 import { RollHistory } from "./components/RollHistory";
 import { RollButton } from "./components/RollButton";
-import { DiceDisplay } from "./components/DiceDIsplay";
+import { DiceDisplay } from "./components/DiceDisplay";
 
 export default function Home() {
   const [selectedDice, setSelectedDice] = useState<number | null>(null);
@@ -46,6 +46,7 @@ export default function Home() {
           result={rollMutation.data?.result || "-"}
           isRolling={rollMutation.isPending}
         />
+
         <RollHistory
           history={history}
           selectedDice={selectedDice}
