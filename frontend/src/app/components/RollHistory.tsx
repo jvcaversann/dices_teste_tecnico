@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface RollResult {
   id: number;
   result: number;
@@ -22,6 +24,19 @@ export function RollHistory({
   onDelete,
   isDeleting,
 }: RollHistoryProps) {
+  const [debouncedDelete, setDebouncedDelete] = useState<number | null>(null);
+
+  const handleDelete = (rollId: number) => {
+    if (debouncedDelete) return;
+
+    setDebouncedDelete(rollId);
+    onDelete?.(rollId);
+
+    setTimeout(() => {
+      setDebouncedDelete(null);
+    }, 500);
+  };
+
   const filteredHistory = history
     ? history.filter((roll) => selectedDice && roll.diceSides === selectedDice)
     : [];
@@ -64,10 +79,14 @@ export function RollHistory({
             </div>
             <div className="text-right">
               <button
-                onClick={() => onDelete?.(roll.id)}
-                disabled={isDeleting}
+                onClick={() => handleDelete(roll.id)}
+                disabled={isDeleting || debouncedDelete === roll.id}
                 className="text-red-400 hover:text-red-300 transition-colors ml-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                title={isDeleting ? "Excluindo..." : "Excluir sorteio"}
+                title={
+                  isDeleting || debouncedDelete === roll.id
+                    ? "Excluindo..."
+                    : "Excluir sorteio"
+                }
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

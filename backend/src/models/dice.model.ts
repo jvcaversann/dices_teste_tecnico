@@ -19,6 +19,14 @@ const getRollHistory = async (diceSides: number) => {
 };
 
 const deleteRoll = async (id: number) => {
+  const existingRoll = await prisma.diceRoll.findUnique({
+    where: { id },
+  });
+
+  if (!existingRoll) {
+    throw new Error("Rolagem não encontrada");
+  }
+
   return await prisma.diceRoll.delete({
     where: { id },
   });
