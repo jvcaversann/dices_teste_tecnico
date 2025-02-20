@@ -27,8 +27,11 @@ Clone o repositório
 Instale as dependências
 
 cd frontend
+
 npm install
+
 cd backend
+
 npm install
 
 Configuração do Banco de Dados
@@ -44,11 +47,13 @@ Rode o comando "npx prisma migrate dev" para subir as tabelas no banco de dados.
 Inicie o backend:
 
 cd backend
+
 npm run dev
 
 Inicie o frontend:
 
 cd frontend
+
 npm run dev
 
 🎲 Como Funciona
@@ -57,6 +62,6 @@ Selecione um dos 7 tipos de dados (D2, D4, D6, D8, D10, D12 e D20)
 
 Clique no botão para rolar o dado
 
-Veja o resultado da rolagem
+Veja o resultado do sorteio
 
-O histórico das rolagens será armazenado e mostrado.
+O histórico dos sorteios será armazenado e mostrado.
