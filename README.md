@@ -14,6 +14,8 @@ Banco de Dados: PostgreSQL
 
 Node.js: Versão 18 ou superior
 
+Docker
+
 Git
 
 Gerenciador de pacotes npm ou yarn
@@ -35,7 +37,9 @@ Crie um arquivo .env na pasta backend
 
 Copie o conteúdo do .env.example e preencha a DATABASE_URL
 
-Execute o projeto
+Rode o comando "docker compose up" para subir o banco de dados.
+
+Rode o comando "npx prisma migrate dev" para subir as tabelas no banco de dados.
 
 Inicie o backend:
 
