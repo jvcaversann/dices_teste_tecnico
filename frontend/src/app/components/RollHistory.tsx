@@ -42,7 +42,10 @@ export function RollHistory({
     : [];
 
   return (
-    <div className="bg-gray-700 rounded p-2 py-2 h-64 w-full overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden flex flex-col">
+    <div
+      className="bg-gray-700 rounded p-2 py-2 h-64 w-full overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden flex flex-col
+      hover:shadow-lg hover:shadow-amber-400/10 transition-shadow duration-300"
+    >
       <h2 className="text-lg font-bold text-amber-300 text-center">
         Histórico
       </h2>
@@ -59,7 +62,8 @@ export function RollHistory({
         filteredHistory.map((roll) => (
           <div
             key={roll.id}
-            className="grid grid-cols-[1fr_1fr_1fr_auto] items-center py-2 border-b border-gray-600 w-full text-sm"
+            className="grid grid-cols-[1fr_1fr_1fr_auto] items-center py-2 border-b border-gray-600 w-full text-sm
+              hover:bg-gray-600/30 transition-colors duration-200 group"
           >
             <div className="text-left">
               <span className="inline-block w-12">Dado:</span>
@@ -81,7 +85,8 @@ export function RollHistory({
               <button
                 onClick={() => handleDelete(roll.id)}
                 disabled={isDeleting || debouncedDelete === roll.id}
-                className="text-red-400 hover:text-red-300 transition-colors ml-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="text-red-400 hover:text-red-300 transition-all duration-200
+                  hover:scale-125 active:scale-100 ml-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 title={
                   isDeleting || debouncedDelete === roll.id
                     ? "Excluindo..."

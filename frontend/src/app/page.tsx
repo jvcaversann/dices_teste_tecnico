@@ -37,11 +37,11 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-800 text-white p-4">
-      <h1 className="text-3xl font-bold mb-6 text-amber-400">
+      <h1 className="text-3xl font-bold mb-6 text-amber-400 animate-fade-in-down">
         Sorteio de Dados
       </h1>
 
-      <div className="flex gap-3 mb-6 overflow-x-auto w-full justify-center">
+      <div className="flex gap-3 mb-6 overflow-x-auto w-full justify-center scroll-smooth pb-2">
         {[2, 4, 6, 8, 10, 12, 20].map((diceSides) => (
           <DiceButton
             key={diceSides}
@@ -75,7 +75,7 @@ export default function Home() {
       />
 
       {rollMutation.isError && (
-        <p className="text-red-400 mt-2">Erro ao rolar o dado!</p>
+        <p className="text-red-400 mt-2 animate-shake">Erro ao rolar o dado!</p>
       )}
     </div>
   );
