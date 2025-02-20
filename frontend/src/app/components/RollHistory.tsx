@@ -1,28 +1,54 @@
 interface RollResult {
   result: number;
-  timestamp: string;
-  sides: number;
+  createdAt: string;
+  diceSides: number;
 }
 
 interface RollHistoryProps {
-  history: RollResult[];
+  history?: RollResult[];
   selectedDice: number | null;
+  isLoading?: boolean;
+  isError?: boolean;
 }
 
-export function RollHistory({ history, selectedDice }: RollHistoryProps) {
-  const filteredHistory = history.filter((roll) => roll.sides === selectedDice);
+export function RollHistory({
+  history,
+  selectedDice,
+  isLoading,
+  isError,
+}: RollHistoryProps) {
+  if (isLoading) {
+    return (
+      <p className="text-gray-400 text-center text-sm mt-4">
+        Carregando histórico...
+      </p>
+    );
+  }
+
+  if (isError) {
+    return (
+      <p className="text-red-400 text-center text-sm mt-4">
+        Erro ao carregar histórico.
+      </p>
+    );
+  }
+
+  const filteredHistory = history
+    ? history.filter((roll) => selectedDice && roll.diceSides === selectedDice)
+    : [];
 
   return (
     <div className="bg-gray-700 rounded p-2 h-48 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden w-full">
       <h2 className="text-base font-bold mb-2 text-amber-300 text-center">
         Histórico
       </h2>
+
       {filteredHistory.length > 0 ? (
-        [...filteredHistory].reverse().map((roll, index) => (
+        [...filteredHistory].map((roll, index) => (
           <div key={index} className="text-sm py-1 border-b border-gray-600">
-            D{roll.sides} - {roll.result} -
+            D{roll.diceSides} - {roll.result} -
             <span className="text-gray-400 ml-2 text-xs">
-              {new Date(roll.timestamp).toLocaleTimeString("pt-BR", {
+              {new Date(roll.createdAt).toLocaleTimeString("pt-BR", {
                 timeZone: "America/Sao_Paulo",
               })}
             </span>

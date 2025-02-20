@@ -1,30 +1,27 @@
 "use client";
 import { useState } from "react";
 import { DiceButton } from "./components/DiceButton";
-import { useRollDiceMutation } from "./services/diceRequests";
+import {
+  useDiceHistoryQuery,
+  useRollDiceMutation,
+} from "./services/diceRequests";
 import { RollHistory } from "./components/RollHistory";
-
 import { RollButton } from "./components/RollButton";
 import { DiceDisplay } from "./components/DiceDIsplay";
 
-interface RollResult {
-  result: number;
-  timestamp: string;
-  sides: number;
-}
-
 export default function Home() {
   const [selectedDice, setSelectedDice] = useState<number | null>(null);
-  const [history, setHistory] = useState<RollResult[]>([]);
 
   const rollMutation = useRollDiceMutation();
+  const {
+    data: history,
+    isLoading,
+    isError,
+  } = useDiceHistoryQuery(selectedDice);
 
   const handleRoll = () => {
     if (!selectedDice) return;
-    rollMutation.mutate(selectedDice, {
-      onSuccess: (data) =>
-        setHistory((prev) => [...prev, { ...data, sides: selectedDice }]),
-    });
+    rollMutation.mutate(selectedDice);
   };
 
   return (
@@ -34,12 +31,12 @@ export default function Home() {
       </h1>
 
       <div className="flex gap-3 mb-6 overflow-x-auto w-full justify-center">
-        {[2, 4, 6, 8, 10, 12, 20].map((sides) => (
+        {[2, 4, 6, 8, 10, 12, 20].map((diceSides) => (
           <DiceButton
-            key={sides}
-            sides={sides}
-            isSelected={selectedDice === sides}
-            onClick={() => setSelectedDice(sides)}
+            key={diceSides}
+            sides={diceSides}
+            isSelected={selectedDice === diceSides}
+            onClick={() => setSelectedDice(diceSides)}
           />
         ))}
       </div>
@@ -49,7 +46,12 @@ export default function Home() {
           result={rollMutation.data?.result || "-"}
           isRolling={rollMutation.isPending}
         />
-        <RollHistory history={history} selectedDice={selectedDice} />
+        <RollHistory
+          history={history}
+          selectedDice={selectedDice}
+          isLoading={isLoading}
+          isError={isError}
+        />
       </div>
 
       <RollButton

@@ -11,4 +11,11 @@ export const DiceRollModel = {
       },
     });
   },
+
+  getRollHistory: async (diceSides: number) => {
+    return await prisma.diceRoll.findMany({
+      where: { diceSides },
+      orderBy: { createdAt: "desc" },
+    });
+  },
 };

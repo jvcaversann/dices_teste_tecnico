@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { DiceService } from "../services/dice.service";
 
 const handleRoll = async (req: Request, res: Response) => {
-  const { diceSides } = req.body;
+  const diceSides = Number(req.body.diceSides);
 
   try {
     const roll = await DiceService.rollDice(diceSides);
@@ -18,6 +18,21 @@ const handleRoll = async (req: Request, res: Response) => {
   }
 };
 
+const handleGetHistory = async (req: Request, res: Response) => {
+  const diceSides = Number(req.params.diceSides);
+
+  try {
+    const history = await DiceService.getDiceHistory(diceSides);
+    res.json(history);
+  } catch (error) {
+    console.error("Erro ao buscar histórico:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Erro desconhecido";
+    res.status(500).json({ error: errorMessage });
+  }
+};
+
 export const DiceController = {
   handleRoll,
+  handleGetHistory,
 };
