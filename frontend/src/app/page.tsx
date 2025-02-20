@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-800 text-white p-4">
       <h1 className="text-3xl font-bold mb-6 text-amber-400">
-        Rolagem de Dados
+        Sorteio de Dados
       </h1>
 
       <div className="flex gap-3 mb-6 overflow-x-auto w-full justify-center">

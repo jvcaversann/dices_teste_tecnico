@@ -22,8 +22,8 @@ export function RollHistory({
     : [];
 
   return (
-    <div className="bg-gray-700 rounded p-2 h-48 w-full overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden flex flex-col">
-      <h2 className="text-base font-bold mb-2 text-amber-300 text-center">
+    <div className="bg-gray-700 rounded p-2 py-2 h-64 w-full overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden flex flex-col">
+      <h2 className="text-lg font-bold text-amber-300 text-center">
         Histórico
       </h2>
 
@@ -39,10 +39,16 @@ export function RollHistory({
         filteredHistory.map((roll, index) => (
           <div
             key={index}
-            className="text-sm py-1 border-b border-gray-600 w-full text-center"
+            className="flex justify-between items-center py-2 border-b border-gray-600 w-full text-sm text-center"
           >
-            D{roll.diceSides} - {roll.result} -
-            <span className="text-gray-400 ml-2 text-xs">
+            <div>
+              Dado: <strong>D{roll.diceSides}</strong>
+            </div>
+            <div>
+              Resultado: <strong>{roll.result}</strong>
+            </div>
+            <span className="text-gray-400 text-xs">
+              Horário do Sorteio:{" "}
               {new Date(roll.createdAt).toLocaleTimeString("pt-BR", {
                 timeZone: "America/Sao_Paulo",
               })}
@@ -51,7 +57,7 @@ export function RollHistory({
         ))
       ) : (
         <p className="text-gray-400 text-center text-sm">
-          Histórico de rolagens aparecerá aqui
+          Histórico de sorteio aparecerá aqui
         </p>
       )}
     </div>
