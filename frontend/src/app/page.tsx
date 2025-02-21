@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DiceButton } from "./components/DiceButton";
 import {
   useDiceHistoryQuery,
@@ -11,7 +11,7 @@ import { RollButton } from "./components/RollButton";
 import { DiceDisplay } from "./components/DiceDisplay";
 
 export default function Home() {
-  const [selectedDice, setSelectedDice] = useState<number | null>(2);
+  const [selectedDice, setSelectedDice] = useState<number | null>(null);
 
   const rollMutation = useRollDiceMutation();
   const deleteMutation = useDeleteRollMutation();
@@ -34,10 +34,6 @@ export default function Home() {
       console.error("Falha ao deletar sorteio:", error);
     }
   };
-
-  useEffect(() => {
-    // Se necessário, você pode adicionar lógica aqui para lidar com efeitos colaterais.
-  }, [selectedDice]);
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-800 text-white p-4">
