@@ -38,7 +38,9 @@ export function RollHistory({
   };
 
   const filteredHistory = history
-    ? history.filter((roll) => selectedDice && roll.diceSides === selectedDice)
+    ? history.filter(
+        (roll) => selectedDice === null || roll.diceSides === selectedDice
+      )
     : [];
 
   return (
