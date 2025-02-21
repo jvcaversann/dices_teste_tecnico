@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DiceButton } from "./components/DiceButton";
 import {
   useDiceHistoryQuery,
@@ -11,7 +11,7 @@ import { RollButton } from "./components/RollButton";
 import { DiceDisplay } from "./components/DiceDisplay";
 
 export default function Home() {
-  const [selectedDice, setSelectedDice] = useState<number | null>(null);
+  const [selectedDice, setSelectedDice] = useState<number | null>(2);
 
   const rollMutation = useRollDiceMutation();
   const deleteMutation = useDeleteRollMutation();
