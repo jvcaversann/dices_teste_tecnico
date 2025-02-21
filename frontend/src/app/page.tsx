@@ -36,9 +36,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (selectedDice) {
-      useDiceHistoryQuery(selectedDice);
-    }
+    // Se necessário, você pode adicionar lógica aqui para lidar com efeitos colaterais.
   }, [selectedDice]);
 
   return (
@@ -76,7 +74,9 @@ export default function Home() {
 
       <RollButton
         onClick={handleRoll}
-        disabled={!selectedDice || rollMutation.isPending}
+        disabled={
+          !selectedDice || rollMutation.isPending || isLoading || isError
+        }
         isRolling={rollMutation.isPending}
       />
 
