@@ -35,6 +35,12 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    if (selectedDice) {
+      useDiceHistoryQuery(selectedDice);
+    }
+  }, [selectedDice]);
+
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-800 text-white p-4">
       <h1 className="text-3xl font-bold mb-6 text-amber-400 animate-fade-in-down">
